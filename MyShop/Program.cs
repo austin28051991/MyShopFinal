@@ -1,0 +1,50 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MyShop.Data;
+using MyShop.Models;
+using MyShop.Services;
+using System;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddIdentity<Users, IdentityRole>(options =>
+{
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 10;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.User.RequireUniqueEmail = false;
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+}
+).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+var app = builder.Build();
+await SeedService.SeedDatabase(app.Services);
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapRazorPages();
+
+app.Run();
