@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Models;
 using MyShop.Respository;
@@ -71,6 +73,24 @@ namespace MyShop.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        public IActionResult AddSubCategory()
+        {
+            var model = new SubCategoryViewModel
+            {
+                categories = _appDbContext.categories
+           .Select(c => new SelectListItem
+           {
+               Value = c.Id.ToString(),
+               Text = c.CategoryName
+           }).ToList()
+            };
+
+            return View(model);
+
+        }
+
 
 
     }

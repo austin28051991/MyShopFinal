@@ -15,5 +15,7 @@ namespace MyShop.Models
         public int DisplayOrder { get; set; }
         public DateTime CreatedOn {  get; set; }
         public string CreatedBy { get; set; }
+
+        public ICollection<SubCategory> subCategories { get; set; }
     }
 }
