@@ -15,5 +15,7 @@ namespace MyShop.Data
         {
                 
         }
+
+        public DbSet<Category> categories { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
+using MyShop.Data;
 using MyShop.Models;
 using MyShop.ViewModels;
 
@@ -11,12 +12,14 @@ namespace MyShop.Controllers
         private readonly SignInManager<Users> signInManager;
         private readonly UserManager<Users> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        
 
-        public AccountController(SignInManager<Users> _signInManager, UserManager<Users> _userManager, RoleManager<IdentityRole> _roleManager)
+        public AccountController(SignInManager<Users> _signInManager, UserManager<Users> _userManager, RoleManager<IdentityRole> _roleManager,AppDbContext appDbContext)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             roleManager = _roleManager;
+           
         }
 
         [HttpGet]

@@ -1,0 +1,31 @@
+﻿@using MyShop.ViewModels;
+@model CategoryViewModel;
+@{
+    ViewData["Ttile"] = "Add Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h4>Add Category</h4>
+    <form asp-action="AddCategory" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="CategoryName" class="form-label"></label>
+            <input asp-for="CategoryName" class="form-control"/>
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="DisplayOrder" class="form-label"></label>
+            <input asp-for="DisplayOrder" class="form-control" />
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Sumbit" class="btn btn-success w-100 text-center" />
+        <div class="text-center">
+            <a asp-controller="Admin" asp-action="CategoryList" class="text-decoration-none">Back</a>
+        </div>
+    </form> 
+</div>
+@section Scripts{
+@{
+       await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}
