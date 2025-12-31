@@ -7,6 +7,51 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyShop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <!-- jQuery (required) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showDuration": "300",
+            "hideDuration": "300",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            @if (TempData["success"] != null)
+            {
+                    <text>toastr.success("@TempData["success"]");</text>
+            }
+
+            @if (TempData["error"] != null)
+            {
+                    <text>toastr.error("@TempData["error"]");</text>
+            }
+
+            @if (TempData["warning"] != null)
+            {
+                    <text>toastr.warning("@TempData["warning"]");</text>
+            }
+
+            @if (TempData["info"] != null)
+            {
+                    <text>toastr.info("@TempData["info"]");</text>
+            }
+        });
+    </script>
 </head>
 <body>
     <header>

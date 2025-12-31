@@ -17,6 +17,7 @@ namespace MyShop.Controllers
     {
 
         private readonly CategoryRepository _categoryRepository = null;
+        private readonly SubCategoryRepository _subCategoryRepository = null;
         private readonly SignInManager<Users> signInManager;
         private readonly UserManager<Users> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -27,7 +28,9 @@ namespace MyShop.Controllers
             userManager = _userManager;
             roleManager = _roleManager;
             _appDbContext = appDbContext;
+
             _categoryRepository = new CategoryRepository();
+            _subCategoryRepository = new SubCategoryRepository();
         }
 
         //public AdminController()
@@ -86,12 +89,53 @@ namespace MyShop.Controllers
                Text = c.CategoryName
            }).ToList()
             };
-
+            
             return View(model);
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddSubCategory(SubCategoryViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError("","Some problem with inputs");
+                return View(model);
+            }
+            else
+            {
+                var user = await userManager.GetUserAsync(User);
+                var userId = user?.Id;
+                var subcategory = new SubCategory()
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    CreatedBy = userId,
+                    CreatedOn=System.DateTime.Now,
+                    CategoryId=model.CategoryId
+                };
+                var result = _subCategoryRepository.InsertSubCategory(_appDbContext, subcategory);
+                if(result!=null)
+                {
+                    TempData["success"] = "SubCategory created successfully!";
+                    return RedirectToAction("ViewSubCategory", "Admin");
+                }
+                else
+                {
+                    ModelState.AddModelError("","Some problem while insertion.");
+                    return View(model);
+                }
+            }
+        }
 
+        [HttpGet]
 
+        public IActionResult ViewSubCategory()
+        {
+            var model = _subCategoryRepository.GetSubCategories(_appDbContext);
+            TempData["success"] = "SubCategory fetched successfully!";
+            return View(model);
+
+        }
     }
 }

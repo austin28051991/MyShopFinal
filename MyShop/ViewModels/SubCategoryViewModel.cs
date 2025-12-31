@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace MyShop.ViewModels
 {
@@ -12,8 +13,9 @@ namespace MyShop.ViewModels
         [Required]
         [DisplayName("SubCategory Description")]
         public string Description { get; set; }
-
+        [Required]
         public int CategoryId { get; set; }
-        public List<SelectListItem> categories {  get; set; }
+        public string? CategoryName { get; set; }
+        public List<SelectListItem>? categories {  get; set; }
     }
 }

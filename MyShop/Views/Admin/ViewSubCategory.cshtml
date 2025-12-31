@@ -1,0 +1,50 @@
+﻿@using MyShop.ViewModels;
+@model  List<SubCategoryViewModel>;
+@{
+    ViewData["Title"] = "View Sub Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Sub Categories</h4>
+<hr />
+<div class="row">
+    <div style="text-align:right">
+        <a type="button" asp-controller="Admin" asp-action="AddSubCategory">Add</a>
+    </div>
+    <div class="col-sm-12">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        <label class="">Sno</label>
+                    </td>
+                    <td>
+                        <label class="">Sub Category Name</label>
+                    </td>
+                    <td>
+                        <label class="">Description</label>
+                    </td>
+                    <td>
+                        <label class="">Category</label>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int srNo = 1;
+                }
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@srNo</td>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.CategoryName</td>
+                    </tr>
+                    srNo++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
