@@ -38,7 +38,18 @@ namespace MyShop.Controllers
             var result = await signInManager.PasswordSignInAsync(model.Email,model.Password,model.RememberMe,lockoutOnFailure:false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                var user = await userManager.FindByEmailAsync(model.Email);
+                var roles = await userManager.GetRolesAsync(user);
+                if (roles.Contains("Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+
+                }
+
+               
             }
             ModelState.AddModelError(string.Empty,"Invalid Credentials.");
             return View(model);

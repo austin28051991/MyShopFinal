@@ -2,11 +2,20 @@
 @model  List<SubCategoryViewModel>;
 @{
     ViewData["Title"] = "View Sub Category";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h4>Sub Categories</h4>
-<hr />
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Sub Categories</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-content">
 <div class="row">
     <div style="text-align:right">
         <a type="button" asp-controller="Admin" asp-action="AddSubCategory">Add</a>
@@ -47,4 +56,5 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
