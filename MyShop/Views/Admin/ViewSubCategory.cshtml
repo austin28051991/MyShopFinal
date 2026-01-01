@@ -37,6 +37,9 @@
                     <td>
                         <label class="">Category</label>
                     </td>
+                    <td>
+                            <label class="">Action</label>
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +53,9 @@
                         <td>@item.Name</td>
                         <td>@item.Description</td>
                         <td>@item.CategoryName</td>
+                        <td>
+                                <a asp-controller="Admin" asp-action="EditSubCategory" asp-route-id="@item.id">Edit</a>
+                        </td>
                     </tr>
                     srNo++;
                 }

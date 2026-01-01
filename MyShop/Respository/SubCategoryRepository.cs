@@ -12,6 +12,7 @@ namespace MyShop.Respository
             var subcategories = _context.SubCategories
      .Select(sc => new SubCategoryViewModel
      {
+         id = sc.Id,
          CategoryId=sc.CategoryId,
          Name = sc.Name,
          Description = sc.Description,
@@ -29,6 +30,7 @@ namespace MyShop.Respository
             var subcategory = _context.SubCategories.Where
                 (x => x.Id == id).Select(x => new SubCategoryViewModel()
                 {
+                    id=x.Id,
                     CategoryId = x.CategoryId,
                     Name = x.Name,
                     Description = x.Description,
@@ -47,6 +49,14 @@ namespace MyShop.Respository
             return newId;
         }
 
-        
+        public int UpdateSubCategory(AppDbContext context, SubCategory subcategory)
+        {
+            var result = context.SubCategories.Update(subcategory);
+            context.SaveChanges();
+            int newId = subcategory.Id;
+            return newId;
+        }
+
+
     }
 }

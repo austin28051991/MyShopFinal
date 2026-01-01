@@ -7,6 +7,7 @@ namespace MyShop.ViewModels
 {
     public class SubCategoryViewModel
     {
+        public int? id { get; set; }
         [Required]
         [DisplayName("SubCategory Name")]
         public string Name { get; set; }

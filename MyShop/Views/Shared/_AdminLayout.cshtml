@@ -679,7 +679,7 @@
         <!--begin::App Main-->
         <main class="app-main">
          
-          @RenderBody();
+          @RenderBody()
         </main>
         <!--end::App Main-->
         <!--begin::Footer-->
@@ -913,5 +913,6 @@
     </script>
     <!--end::Script-->
 </body>
+ @await RenderSectionAsync("Scripts", required: false)
 <!--end::Body-->
 </html>

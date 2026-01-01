@@ -137,5 +137,70 @@ namespace MyShop.Controllers
             return View(model);
 
         }
+
+        [HttpGet]
+        public IActionResult EditSubCategory(int id)
+        {
+            if(id==null)
+            {
+               
+                return RedirectToAction("ViewSubCategory","Admin");
+            }
+            else
+            {
+                var model = _subCategoryRepository.GetSubCategoryById(_appDbContext,id);
+                model.categories = _appDbContext.categories
+           .Select(c => new SelectListItem
+           {
+               Value = c.Id.ToString(),
+               Text = c.CategoryName,
+               Selected = c.CategoryName == model.CategoryName
+           }).ToList();
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSubCategory(SubCategoryViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError("","Check all the fields");
+                return View(model);
+            }
+            else
+            {
+
+                var current = _appDbContext.SubCategories.Where(x => x.Id == model.id).FirstOrDefault();
+
+                if (current == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    current.Name = model.Name;
+                    current.Description = model.Description;
+                    current.CategoryId = model.CategoryId;
+
+
+                    var result = _subCategoryRepository.UpdateSubCategory(_appDbContext, current);
+
+                    if (result != null)
+                    {
+                        TempData["success"] = "SubCategory updated successfully!";
+                        return RedirectToAction("ViewSubCategory", "Admin");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Some problem while updation.");
+                        return View(model);
+                    } 
+                }
+
+                
+            }
+        }
+
     }
 }

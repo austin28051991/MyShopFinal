@@ -9,6 +9,7 @@ namespace MyShop.Respository
         int InsertSubCategory(AppDbContext context, SubCategory subcategory);
         List<SubCategoryViewModel> GetSubCategories(AppDbContext context);
         SubCategoryViewModel GetSubCategoryById(AppDbContext context,int id);
+        int UpdateSubCategory(AppDbContext context, SubCategory subcategory);
 
     }
 }
